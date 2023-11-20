@@ -1,0 +1,70 @@
+h1. Sample Markdown File
+
+h2. Introduction
+
+This is a sample Markdown file to demonstrate various Markdown elements.
+
+h2. Text Formatting
+
+*Italic Text*  *Bold Text*   **Bold and Italic Text** 
+
+h2. Lists
+
+h3. Unordered List
+
+
+* Item 1
+* Item 2
+* Item 3
+
+h3. Ordered List
+
+
+# First Item
+# Second Item
+# Third Item
+
+h2. Links
+
+"OpenAI":https://www.openai.com "Google":https://www.google.com
+
+h2. Images
+
+!https://via.placeholder.com/150!
+h2. Code
+
+Inline  @code@  can be represented with backticks.
+
+```python
+def example_function():
+    print("Hello, Markdown!")
+
+h2. Horizontal Rule
+
+
+
+h2. Tables
+
+| Header 1 | Header 2 |
+| -------- | -------- |
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |
+
+h2. Task List
+
+
+* [x] Task 1
+* [ ] Task 2
+* [ ] Task 3
+
+h2. Emojis
+
+:smile: :thumbsup: :rocket:
+
+h2. Footnotes
+
+Here is a footnote[^1].
+
+h2. Conclusion
+
+This concludes the sample Markdown file. Feel free to use and modify it as needed.
