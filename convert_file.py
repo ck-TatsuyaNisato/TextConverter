@@ -2,6 +2,7 @@ import MarkdownToTextile
 import TextileToMarkdown
 
 def main():
+    # Get a target file name and check the extension
     file_name_with_extension = input().split(".")
     file_name_without_extension = file_name_with_extension[:-1]
     file_name = ''.join(map(str, file_name_without_extension))

@@ -70,6 +70,7 @@ class HTMLToTextileParser(HTMLParser):
             self.ul_counter += 1
         elif tag == 'li':
             self.textile_output.append("\n")
+            # Create a nested list
             if self.ol_counter > 0:
                 num_ol = "#"*self.ol_counter + " "
                 self.textile_output.append(num_ol)
@@ -114,6 +115,5 @@ def convert_html_to_textile(html_input):
     return ''.join(parser.textile_output)
 
 def convert_markdown_to_html(markdown_input):
-    # Convert Markdown to HTML
     html_file = markdown2.markdown(markdown_input)
     return html_file
