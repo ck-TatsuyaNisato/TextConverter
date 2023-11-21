@@ -19,7 +19,7 @@ However take care of being same permissions a repository and wiki page.
 3. Move the local repository
 4. Store your file to convert in the target foloder (e.g. If you want to convert a Markdown file to a Textile file, please store the file in `MarkdownFiles`)
 5. `$ python convert_file.py`
-6. `{FILE_NAME.XX}`
+6. Type `{FILE_NAME.XX}`
 7. Check the target folders ( (e.g. If you converted a Markdown file to a Textile file, please check the file in `TextileFiles`))
 
 ### Limitations
