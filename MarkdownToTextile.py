@@ -114,7 +114,7 @@ class HTMLToTextileParser(HTMLParser):
 def convert_html_to_textile(html_input):
     parser = HTMLToTextileParser()
     parser.feed(html_input)
-    print(parser.textile_output)
+    # print(parser.textile_output)
     return ''.join(parser.textile_output)
 
 def convert_markdown_to_html(markdown_input):
