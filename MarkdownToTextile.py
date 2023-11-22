@@ -27,6 +27,7 @@ class HTMLToTextileParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.textile_output = []
+        self.head = ""
         self.url = ""
         self.img = ""
         self.blockquote = ""
@@ -41,7 +42,7 @@ class HTMLToTextileParser(HTMLParser):
             if self.textile_output[-1] == "\n":
                 self.textile_output.pop()
         if tag in ["h1","h2","h3","h4","h5"]:
-            self.textile_output.append(f"{tag}. ")
+            self.head = tag
         elif tag == 'img':
             for attr, value in attrs:
                 if attr == "src":
@@ -59,24 +60,23 @@ class HTMLToTextileParser(HTMLParser):
         elif tag == 'code':
             self.textile_output.append(' @')
         elif tag == 'ol':
-            if self.ol_counter > 0:
-                break_line_num = self.textile_output[-1].count("\n")
-                self.textile_output[-1] = self.textile_output[-1].replace("\n"*break_line_num, "")
+            break_line_num = self.textile_output[-1].count("\n")
+            self.textile_output[-1] = self.textile_output[-1].replace("\n"*break_line_num, "")
             self.ol_counter += 1
         elif tag == 'ul':
-            if self.ul_counter > 0:
-                break_line_num = self.textile_output[-1].count("\n")
-                self.textile_output[-1] = self.textile_output[-1].replace("\n"*break_line_num, "")
+            break_line_num = self.textile_output[-1].count("\n")
+            self.textile_output[-1] = self.textile_output[-1].replace("\n"*break_line_num, "")
             self.ul_counter += 1
         elif tag == 'li':
             self.textile_output.append("\n")
             # Create a nested list
-            if self.ol_counter > 0:
-                num_ol = "#"*self.ol_counter + " "
-                self.textile_output.append(num_ol)
-            elif self.ul_counter > 0:
-                num_ul = "*"*self.ul_counter + " "
+            # TODO: FIX: If the nest is deeper than 4 levels and the nest has ol and ul, the deeper level list is the same as the 4 level's list type
+            if self.ul_counter > 0 and self.textile_output:
+                num_ul = "*"*(self.ul_counter+self.ol_counter) + " "
                 self.textile_output.append(num_ul)
+            elif self.ol_counter > 0:
+                num_ol = "#"*(self.ol_counter+self.ul_counter) + " "
+                self.textile_output.append(num_ol)
 
     def handle_endtag(self, tag):
         # print(f"end:{tag}")
@@ -95,7 +95,10 @@ class HTMLToTextileParser(HTMLParser):
 
     def handle_data(self, data):
         # print(f"data:{data}")
-        if self.url:
+        if self.head:
+            data = f"{self.head}. {data}\n"
+            self.head = ""
+        elif self.url:
             data = f'"{data}":{self.url}'
             self.url = ""
         elif self.img:
@@ -111,7 +114,7 @@ class HTMLToTextileParser(HTMLParser):
 def convert_html_to_textile(html_input):
     parser = HTMLToTextileParser()
     parser.feed(html_input)
-    # print(parser.textile_output)
+    print(parser.textile_output)
     return ''.join(parser.textile_output)
 
 def convert_markdown_to_html(markdown_input):
